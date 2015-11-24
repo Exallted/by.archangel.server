@@ -1,0 +1,86 @@
+package by.exallted.server;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+
+public class ServerFrame {
+	
+	static JTextArea inputData;
+	
+	public static void main(String[] args) {
+		mainFrameServer();
+	}
+
+	public static void mainFrameServer(){
+		Server serv = new Server();
+		JFrame frame = new JFrame("Server Native Speaker");
+		frame.setBounds(100, 100, 800, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JButton runServer = new JButton("Start");
+		runServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				serv.RunServer();
+			}
+		});
+		runServer.setBounds(10, 430, 90, 25);
+		frame.getContentPane().add(runServer);
+		
+		JButton stopServer = new JButton("Stop");
+		stopServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				serv.stopServer();
+			}
+		});
+		stopServer.setBounds(205, 430, 90, 25);
+		frame.getContentPane().add(stopServer);
+		
+		inputData = new JTextArea();
+		inputData.setBounds(10, 50, 465, 375);
+		frame.getContentPane().add(inputData);
+		
+		JLabel inputDataFromClients = new JLabel("Input data from clients");
+		inputDataFromClients.setFont(new Font("Rockwell Extra Bold", Font.BOLD, 21));
+		inputDataFromClients.setBounds(10, 10, 340, 35);
+		frame.getContentPane().add(inputDataFromClients);
+		
+		JLabel listUserslbl = new JLabel("List users");
+		listUserslbl.setFont(new Font("Rockwell Extra Bold", Font.BOLD, 21));
+		listUserslbl.setBounds(630, 10, 150, 35);
+		frame.getContentPane().add(listUserslbl);
+		
+		JTextArea listUsers = new JTextArea();
+		listUsers.setBounds(505, 50, 220, 375);
+		frame.getContentPane().add(listUsers);
+		
+		JScrollPane scrollUsers = new JScrollPane(listUsers);
+		scrollUsers.setBounds(580, 50, 200, 375);
+		scrollUsers.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollUsers.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		frame.getContentPane().add(scrollUsers);
+		
+		JScrollPane scrollData = new JScrollPane(inputData);
+		scrollData.setBounds(10, 50, 560, 375);
+		scrollData.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollData.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		frame.getContentPane().add(scrollData);
+		
+		JButton Restart = new JButton("Restart");
+		Restart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+        //nothing			
+			}
+		});
+		Restart.setBounds(105, 430, 90, 25);
+		frame.getContentPane().add(Restart);
+		frame.setVisible(true);
+	}
+}
