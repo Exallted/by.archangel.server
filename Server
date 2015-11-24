@@ -1,0 +1,67 @@
+package by.exallted.server;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.*;
+
+public class Server {
+
+	private int port = 9666;
+	private int count = 60000;
+	
+	private ServerSocket serversocket;
+	private Socket serveraccept;
+	private InputStream in;
+	private OutputStream out;
+	
+	public void RunServer(){
+		
+		try{
+			
+		serversocket = new ServerSocket(port, count);
+		serveraccept = serversocket.accept();	
+		
+		in = serveraccept.getInputStream();
+		out = serveraccept.getOutputStream();
+		
+		DataInputStream datain = new DataInputStream(in);
+		DataOutputStream dataout = new DataOutputStream(out);
+		
+		
+		ServerFrame.inputData.append("Server was started");
+		System.out.println("Server is started!");
+		
+		String line = null;
+		
+		while(true){
+			
+			line = datain.readUTF();
+			System.out.println(line);
+			ServerFrame.inputData.append(line + "\n");
+			
+			out.flush();
+		}
+		
+		}catch(Exception x){
+			x.printStackTrace();
+		}
+	}
+	
+	public void stopServer(){
+	
+		try{
+			
+		out.close();
+		in.close();
+		serveraccept.close();
+		serversocket.close();
+		
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+}
